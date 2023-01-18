@@ -8,10 +8,14 @@ export default function MovieDisplay(props) {
              <h2>{props.movie.Title}</h2>
              <img src={props.movie.Poster} alt={props.movie.Title} />
              <p>And they made {props.movie.BoxOffice}</p>
+             <p>It scored {props.score.score}</p>
+             <p>Its genre is  {props.movie.Actors}</p>
            </div>
          ) : (
            <h1> No Movie To Display</h1>
          )}
+
+
        </>
      );
    }
