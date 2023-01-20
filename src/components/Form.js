@@ -17,6 +17,9 @@ export default function Form(props) {
           props.movieSearch(searchTerm);
           props.scoreSearch(searchTerm);
           props.urbanSearch(searchTerm);
+          props.synonymSearch(searchTerm);
+          props.definitionSearch(searchTerm);
+          props.newsSearch(searchTerm);
          
 
 
