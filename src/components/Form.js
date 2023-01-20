@@ -19,7 +19,8 @@ export default function Form(props) {
           props.urbanSearch(searchTerm);
           props.synonymSearch(searchTerm);
           props.definitionSearch(searchTerm);
-          props.newsSearch(searchTerm);
+          props.domainSearch(searchTerm);
+
          
 
 

@@ -1,5 +1,5 @@
 // Define a function that is our component, always make sure to declare the props parameter so you can use props in your component
-export default function MovieDisplay({ movie, score, urban, synonym, definition, news }) {
+export default function MovieDisplay({ movie, score, urban, synonym, definition, news, domain }) {
   //The component must return some JSX
   return (
     <>
