@@ -15,6 +15,12 @@ export default function Form(props) {
         onSubmit={(e) => {
           e.preventDefault();
           props.movieSearch(searchTerm);
+          props.scoreSearch(searchTerm);
+          props.urbanSearch(searchTerm);
+         
+
+
+
         }}
       >
         <input type="text" onChange={handleChange} value={searchTerm} />
