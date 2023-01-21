@@ -11,7 +11,7 @@ const apiKey = "7211827f";
   const [urban, setUrban] = useState(null);
   const [synonym, setSynonym] = useState(null);
   const [definition, setDefinition] = useState(null);
-  // const [news, setNews]= useState(null)
+  const [news, setNews]= useState(null)
   const [domain, setDomain]= useState(null)
 
  
@@ -103,23 +103,23 @@ const apiKey = "7211827f";
     }
   }
 
-  // const getNews = async (searchTerm) => {
-  //   try {
-  //     const response = await fetch(`https://real-time-news-data.p.rapidapi.com/search?query=${searchTerm}&country=US&lang=en`, {
-  //       method: "GET",
-  //       headers: {
-  //         'X-RapidAPI-Key': '5e4d0eeb5bmsh1f0574004d6dfb6p160e9fjsnd9a3ae03ad63',
-  //         'X-RapidAPI-Host': 'real-time-news-data.p.rapidapi.com'
-  //       }
-  //     })
-  //     const data = await response.json()
-  //     setNews(data)
-  //     console.log(data)
-  //    } catch (error) {
-  //     console.error(error)
-  //     setErrorMessage(error.message);
-  //   }
-  // }
+  const getNews = async (searchTerm) => {
+    try {
+      const response = await fetch(`https://real-time-news-data.p.rapidapi.com/search?query=${searchTerm}&country=US&lang=en`, {
+        method: "GET",
+        headers: {
+          'X-RapidAPI-Key': '5e4d0eeb5bmsh1f0574004d6dfb6p160e9fjsnd9a3ae03ad63',
+          'X-RapidAPI-Host': 'real-time-news-data.p.rapidapi.com'
+        }
+      })
+      const data = await response.json()
+      setNews(data)
+      console.log(data)
+     } catch (error) {
+      console.error(error)
+      setErrorMessage(error.message);
+    }
+  }
 
   const getDomain = async (searchTerm) => {
     try {
@@ -146,16 +146,16 @@ const apiKey = "7211827f";
     getUrban()
     getSynonym()
     getDefinition()
-
+    getNews()
     getDomain()
   }, []);
 
  
 return (
     <div className="App">
-      <Form movieSearch={getMovie} scoreSearch={getScore} urbanSearch={getUrban} synonymSearch={getSynonym} definitionSearch={getDefinition} domainSearch={getDomain} />
+      <Form movieSearch={getMovie} scoreSearch={getScore} urbanSearch={getUrban} synonymSearch={getSynonym} definitionSearch={getDefinition} domainSearch={getDomain} newsSearch={getNews}/>
       <div>{errorMessage ? `Error:${errorMessage}` : ""}</div>
-      <MovieDisplay movie={movie} score={score} urban={urban} synonym={synonym} definition={definition}  domain={domain} />
+      <MovieDisplay movie={movie} score={score} urban={urban} synonym={synonym} definition={definition}  domain={domain} news={news} />
     </div>
   );
 }
