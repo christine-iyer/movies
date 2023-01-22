@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 // WE IMPORT OUR COMPONENTS
 import MovieDisplay from "./components/MovieDisplay";
 import Form from "./components/Form";
-
+import Logo from './components/Logo/Logo';
 export default function App() {
   // USE OUR COMPONENTS IN APPs RETURNED JSX
 const apiKey = "7211827f";
@@ -11,7 +11,7 @@ const apiKey = "7211827f";
   const [urban, setUrban] = useState(null);
   const [synonym, setSynonym] = useState(null);
   const [definition, setDefinition] = useState(null);
-  const [news, setNews]= useState(null)
+
   const [domain, setDomain]= useState(null)
 
  
@@ -25,10 +25,11 @@ const apiKey = "7211827f";
       );
       const data = await response.json();
       setMovie(data);
-      console.log(data)
+      return data
     } catch (e) {
       console.error(e);
       setErrorMessage(e.message);
+      return e.message
     }
   }
   const getScore = async (searchTerm) => {
@@ -42,10 +43,11 @@ const apiKey = "7211827f";
       })
       const data = await response.json()
       setScore(data)
-      console.log(data)
-     } catch (error) {
-      console.error(error)
-      setErrorMessage(error.message);
+      return data
+    } catch (e) {
+      console.error(e);
+      setErrorMessage(e.message);
+      return e.message
     }
   }
   const getUrban = async (searchTerm) => {
@@ -59,10 +61,12 @@ const apiKey = "7211827f";
       })
       const data = await response.json()
       setUrban(data)
-      console.log(data)
-     } catch (error) {
-      console.error(error)
-      setErrorMessage(error.message);
+      return data
+    } catch (e) {
+      console.error(e);
+      setErrorMessage(e.message);
+      return e.message
+      
     }
   }
 
@@ -78,10 +82,11 @@ const apiKey = "7211827f";
       })
       const data = await response.json()
       setSynonym(data)
-      console.log(data)
-     } catch (error) {
-      console.error(error)
-      setErrorMessage(error.message);
+      return data
+    } catch (e) {
+      console.error(e);
+      setErrorMessage(e.message);
+      return e.message
     }
   }
  
@@ -96,30 +101,31 @@ const apiKey = "7211827f";
       })
       const data = await response.json()
       setDefinition(data)
-      console.log(data)
-     } catch (error) {
-      console.error(error)
-      setErrorMessage(error.message);
+      return data
+    } catch (e) {
+      console.error(e);
+      setErrorMessage(e.message);
+      return e.message
     }
   }
 
-  const getNews = async (searchTerm) => {
-    try {
-      const response = await fetch(`https://real-time-news-data.p.rapidapi.com/search?query=${searchTerm}&country=US&lang=en`, {
-        method: "GET",
-        headers: {
-          'X-RapidAPI-Key': '5e4d0eeb5bmsh1f0574004d6dfb6p160e9fjsnd9a3ae03ad63',
-          'X-RapidAPI-Host': 'real-time-news-data.p.rapidapi.com'
-        }
-      })
-      const data = await response.json()
-      setNews(data)
-      console.log(data)
-     } catch (error) {
-      console.error(error)
-      setErrorMessage(error.message);
-    }
-  }
+  // const getNews = async (searchTerm) => {
+  //   try {
+  //     const response = await fetch(`https://real-time-news-data.p.rapidapi.com/search?query=${searchTerm}&country=US&lang=en`, {
+  //       method: "GET",
+  //       headers: {
+  //         'X-RapidAPI-Key': '5e4d0eeb5bmsh1f0574004d6dfb6p160e9fjsnd9a3ae03ad63',
+  //         'X-RapidAPI-Host': 'real-time-news-data.p.rapidapi.com'
+  //       }
+  //     })
+  //     const data = await response.json()
+  //     setNews(data)
+  //     console.log(data)
+  //    } catch (error) {
+  //     console.error(error)
+  //     setErrorMessage(error.message);
+  //   }
+  // }
 
   const getDomain = async (searchTerm) => {
     try {
@@ -132,30 +138,39 @@ const apiKey = "7211827f";
       })
       const data = await response.json()
       setDomain(data)
-      console.log(data)
-     } catch (error) {
-      console.error(error)
-      setErrorMessage(error.message);
+      return data
+    } catch (e) {
+      console.error(e);
+      setErrorMessage(e.message);
+      return e.message
     }
   }
 
+
   useEffect(() => {
     
-    getMovie()
-    getScore()
-    getUrban()
-    getSynonym()
-    getDefinition()
-    getNews()
+    Promise.all([
+    getMovie(),
+    getScore(),
+    getUrban(),
+    getSynonym(),
+    getDefinition(),
     getDomain()
+  ]).then((values)=>{
+    console.log(values)
+
+  })
+
+  
   }, []);
 
  
 return (
     <div className="App">
-      <Form movieSearch={getMovie} scoreSearch={getScore} urbanSearch={getUrban} synonymSearch={getSynonym} definitionSearch={getDefinition} domainSearch={getDomain} newsSearch={getNews}/>
+        <aside><Logo /></aside>
+      <Form movieSearch={getMovie} scoreSearch={getScore} urbanSearch={getUrban} synonymSearch={getSynonym} definitionSearch={getDefinition} domainSearch={getDomain} />
       <div>{errorMessage ? `Error:${errorMessage}` : ""}</div>
-      <MovieDisplay movie={movie} score={score} urban={urban} synonym={synonym} definition={definition}  domain={domain} news={news} />
+      <MovieDisplay movie={movie} score={score} urban={urban} synonym={synonym} definition={definition}  domain={domain}  />
     </div>
   );
 }

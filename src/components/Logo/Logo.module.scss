@@ -1,0 +1,15 @@
+.Logo {
+     height: 12vmin;
+     width: 12vmin;
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+     border-radius: 5%;
+     margin: 2%;
+     color: green;
+     font-size: 2.7vmin;
+     box-shadow: #f0c9d7;
+     border: .6vmin solid var(--tan-2);
+     background-image: linear-gradient(25deg,#d64c7f,#ee4758 50%);
+     }
